@@ -120,9 +120,14 @@ async def account_login(bot: Client, message: Message):  # Pass message here
     raw_text2 = input2.text
     topic_url = "https://spec.iitschool.com/api/v1/batch-topic/" + raw_text2 + "?type=class"
     response = requests.get(topic_url, headers=headers)
-    topic_data = response.json()
-    batch_data = topic_data['data']
-    name = batch_data["batch_detail"]["name"]
+    topic_data = response.json()  # Assuming the API response is a JSON string
+    
+    batch_data = topic_data['data']  # Assuming 'data' is the key where the batch info is
+    
+    # Convert the string (JSON) to a dictionary 
+    batch_data = json.loads(batch_data)
+
+    name = batch_data["batch_detail"]["name"] 
     
 
     BBB = "**TOPIC-ID - TOPIC**\n\n"
