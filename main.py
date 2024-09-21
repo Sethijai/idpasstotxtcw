@@ -60,7 +60,7 @@ bc_url = (
 bc_hdr = {"BCOV-POLICY": BCOV_POLICY}
 
 @bot.on_message(filters.command(["login"]))
-async def account_login(bot: Client, m: Message):
+async def account_login(bot: Client, message: Message):  # Pass message here
     input1 = await app.ask(message.chat.id, text="Send ID & Password in this manner otherwise bot will not respond.\n\nSend like this:-  ID*Password\n\n OR Send Your Token")
     login_url = "https://spec.iitschool.com/api/v1/login-other"
     raw_text = input1.text
