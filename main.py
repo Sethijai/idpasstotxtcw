@@ -26,14 +26,16 @@ from bs4 import BeautifulSoup
 load_dotenv()
 os.makedirs("./downloads", exist_ok=True)
 
-bot = Client(
-    "CW",
-    bot_token=os.environ.get("BOT_TOKEN"),
-    api_id=int(os.environ.get("API_ID")),
-    api_hash=os.environ.get("API_HASH")
-)
+  bot = Client(
+       "CW",
+       bot_token=os.environ.get("BOT_TOKEN"),
+       api_id=int(os.environ.get("API_ID")),
+       api_hash=os.environ.get("API_HASH")
+   )
+   
+   app = bot  # Define app globally, referencing the bot object 
 
-logger = logging.getLogger()
+   logger = logging.getLogger()
 # thumb = os.environ.get("THUMB")
 # if thumb.startswith("http://") or thumb.startswith("https://"):
 #     getstatusoutput(f"wget '{thumb}' -O 'thumb.jpg'")
