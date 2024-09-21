@@ -111,7 +111,7 @@ async def account_login(bot: Client, message: Message):  # Pass message here
     data = response.json()
     topicid = ""
     for topic in data["batch_details"]["topics"]:
-    topicid += str(topic['id']) + "&"
+       topicid += str(topic['id']) + "&"
     topicid = topicid[:-1]
 
     FFF = "**BATCH-ID     -     BATCH NAME**\n\n"
