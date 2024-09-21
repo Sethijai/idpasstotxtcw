@@ -107,22 +107,12 @@ async def account_login(bot: Client, message: Message):  # Pass message here
 
     await input1.delete(True)
     batch_url = "https://spec.iitschool.com/api/v1/my-batch"
-    response = requests.get(batch_url, headers=headers)
+    response = requests.get(topic_url, headers=headers)
     data = response.json()
     topicid = ""
-    found_ids = False
-    for key in data:
-        # Check if the value is a list
-        if isinstance(data[key], list):
-            for item in data[key]:
-                # Check if the item has an 'id'
-                if 'id' in item:
-                    topicid += str(item['id']) + "&"
-                    found_ids = True
-
-    # Remove trailing '&'
-    if found_ids:
-        topicid = topicid[:-1]
+    for topic in data["batch_details"]["topics"]:
+    topicid += str(topic['id']) + "&"
+    topicid = topicid[:-1]
 
     FFF = "**BATCH-ID     -     BATCH NAME**\n\n"
     for data in topicid:
