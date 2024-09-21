@@ -50,7 +50,7 @@ async def start(bot, update):
                               "Bot made by **『 🅰🅸🆁 🅿🅷🅴🅾🅽🅸🆇™ 』**")
         
 
-ACCOUNT_ID = "6206459123001"
+ACCOUNT_ID = "6415636611001"
 BCOV_POLICY = "BCpkADawqM1474MvKwYlMRZNBPoqkJY-UWm7zE1U769d5r5kqTjG0v8L-THXuVZtdIQJpfMPB37L_VJQxTKeNeLO2Eac_yMywEgyV9GjFDQ2LTiT4FEiHhKAUvdbx9ku6fGnQKSMB8J5uIDd"
 bc_url = (
     f"https://edge.api.brightcove.com/playback/v1/accounts/{ACCOUNT_ID}/videos"
@@ -60,11 +60,11 @@ bc_hdr = {"BCOV-POLICY": BCOV_POLICY}
 @bot.on_message(filters.command(["login"]))
 async def account_login(bot: Client, m: Message):
     input1 = await app.ask(message.chat.id, text="**Send ID & Password in this manner otherwise bot will not respond.\n\nSend like this:-  ID*Password\n\n OR Send Your Token**")
-        login_url = "https://elearn.crwilladmin.com/api/v3/login-other"
+        login_url = "https://spec.iitschool.com/api/v1/login-other"
         raw_text = input1.text
         if "*" in raw_text:
             headers = {
-                "Host": "elearn.crwilladmin.com",
+                "Host": "spec.iitschool.com",
                 "origintype": "web",
                 "accept": "application/json",
                 "content-type": "application/json; charset=utf-8",
@@ -92,7 +92,7 @@ async def account_login(bot: Client, m: Message):
         return
 
     headers = {
-        "Host": "elearn.crwilladmin.com",
+        "Host": "spec.iitschool.com",
         "origintype": "web",
         "usertype": "2",
         "token": token,
@@ -101,7 +101,7 @@ async def account_login(bot: Client, m: Message):
     }
 
     await input1.delete(True)
-    batch_url = "https://elearn.crwilladmin.com/api/v3/my-batch"
+    batch_url = "https://spec.iitschool.com/api/v1/my-batch"
     response = requests.get(batch_url, headers=headers)
     data = response.json()
     topicid = data["data"]["batchData"]
@@ -113,7 +113,7 @@ async def account_login(bot: Client, m: Message):
     await message.reply_text(f"**HERE IS YOUR BATCH**\n\n{FFF}")
     input2 = await app.ask(message.chat.id, text="**Now send the Batch ID to Download**")
     raw_text2 = input2.text
-    topic_url = "https://elearn.crwilladmin.com/api/v3/batch-topic/" + raw_text2 + "?type=class"
+    topic_url = "https://spec.iitschool.com/api/v1/batch-topic/" + raw_text2 + "?type=class"
     response = requests.get(topic_url, headers=headers)
     topic_data = response.json()
     batch_data = topic_data['data']['batch_topic']
@@ -167,7 +167,7 @@ async def account_login(bot: Client, m: Message):
         
             #gettting all json with diffrent topic id https://elearn.crwilladmin.com/api/v1/comp/batch-detail/881?redirectBy=mybatch&topicId=2324&token=d76fce74c161a264cf66b972fd0bc820992fe57
             scraper = cloudscraper.create_scraper()
-            html4 = scraper.get("https://elearn.crwilladmin.com/api/v1/comp/batch-detail/"+raw_text2+"?redirectBy=mybatch&topicId="+t+"&token="+token).content
+            html4 = scraper.get("https://spec.iitschool.com/api/v1/comp/batch-detail/"+raw_text2+"?redirectBy=mybatch&topicId="+t+"&token="+token).content
             ff = json.loads(html4)
             #vc =ff.json()["data"]["class_list"]["batchDescription"]
             mm = ff["data"]["class_list"]["batchName"]   
@@ -193,7 +193,7 @@ async def account_login(bot: Client, m: Message):
                             video_url = video_source["src"]
                             #print(video_url)
                             scraper = cloudscraper.create_scraper()
-                            html5 = scraper.get("https://elearn.crwilladmin.com/api/v1/livestreamToken?type=brightcove&vid="+vidid+"&token="+token).content
+                            html5 = scraper.get("https://spec.iitschool.com/api/v1/livestreamToken?type=brightcove&vid="+vidid+"&token="+token).content
                             surl = json.loads(html5)
                             stoken = surl["data"]["token"]
                             #print(stoken)
@@ -212,7 +212,7 @@ async def account_login(bot: Client, m: Message):
                             video_url1 = video_source1["src"]
                             #print(video_url)
                             scraper = cloudscraper.create_scraper()
-                            html8 = scraper.get("https://elearn.crwilladmin.com/api/v1/livestreamToken?type=brightcove&vid="+vidid+"&token="+token).content
+                            html8 = scraper.get("https://spec.iitschool.com/api/v1/livestreamToken?type=brightcove&vid="+vidid+"&token="+token).content
                             surl1 = json.loads(html8)
                             stoken1 = surl1["data"]["token"]
                             #print(stoken)
@@ -295,7 +295,7 @@ async def account_login(bot: Client, m: Message):
         raw_text5 = input5.text
         if raw_text5 == 'y':
             scraper = cloudscraper.create_scraper()
-            html7 = scraper.get("https://elearn.crwilladmin.com/api/v1/comp/batch-notes/"+raw_text2+"?topicid="+raw_text2+"&token="+token).content
+            html7 = scraper.get("https://spec.iitschool.com/api/v1/comp/batch-notes/"+raw_text2+"?topicid="+raw_text2+"&token="+token).content
             pdfD=json.loads(html7)
             k=pdfD["data"]["notesDetails"]
             bb = len(pdfD["data"]["notesDetails"])
