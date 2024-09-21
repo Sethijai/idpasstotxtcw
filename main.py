@@ -62,34 +62,37 @@ async def account_login(bot: Client, m: Message):
     input1 = await app.ask(message.chat.id, text="Send ID & Password in this manner otherwise bot will not respond.\n\nSend like this:-  ID*Password\n\n OR Send Your Token")
     login_url = "https://spec.iitschool.com/api/v1/login-other"
     raw_text = input1.text
-    if "*" in raw_text:
-        headers = {
-            "Host": "spec.iitschool.com",
-            "origintype": "web",
-            "accept": "application/json",
-            "content-type": "application/json; charset=utf-8",
-            "accept-encoding": "gzip",
-            "user-agent": "okhttp/3.9.1"
-        }
+    try:  # Wrap the entire if statement
+        if "*" in raw_text:
+            headers = {
+                "Host": "spec.iitschool.com",
+                "origintype": "web",
+                "accept": "application/json",
+                "content-type": "application/json; charset=utf-8",
+                "accept-encoding": "gzip",
+                "user-agent": "okhttp/3.9.1"
+            }
 
-        email, password = raw_text.split("*")
-        data = {
-            "deviceType": "web",
-            "password": password,
-            "deviceModel": "chrome",
-            "deviceVersion": "Chrome+119",
-            "email": email
-        }
+            email, password = raw_text.split("*")
+            data = {
+                "deviceType": "web",
+                "password": password,
+                "deviceModel": "chrome",
+                "deviceVersion": "Chrome+119",
+                "email": email
+            }
 
-        response = requests.post(login_url, headers=headers, json=data)
-        response.raise_for_status() 
-        token = response.json()["data"]["token"]
-        await message.reply_text(f"**Login Successful**\n\n{token}")
-    else:
-        token = raw_text
-    except Exception as e:  # Correct indentation
+            response = requests.post(login_url, headers=headers, json=data)
+            response.raise_for_status() 
+            token = response.json()["data"]["token"]
+            await message.reply_text(f"**Login Successful**\n\n{token}")
+        else:
+            token = raw_text
+    except Exception as e:
         await message.reply_text(f"An error occurred during login: {e}")
         return 
+
+    # ... rest of your code ... 
 
     headers = {
         "Host": "spec.iitschool.com",
