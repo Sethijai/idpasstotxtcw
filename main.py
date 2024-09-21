@@ -59,27 +59,27 @@ bc_hdr = {"BCOV-POLICY": BCOV_POLICY}
 
 @bot.on_message(filters.command(["login"]))
 async def account_login(bot: Client, m: Message):
-    input1 = await app.ask(message.chat.id, text="**Send ID & Password in this manner otherwise bot will not respond.\n\nSend like this:-  ID*Password\n\n OR Send Your Token**")
-        login_url = "https://spec.iitschool.com/api/v1/login-other"
-        raw_text = input1.text
-        if "*" in raw_text:
-            headers = {
-                "Host": "spec.iitschool.com",
-                "origintype": "web",
-                "accept": "application/json",
-                "content-type": "application/json; charset=utf-8",
-                "accept-encoding": "gzip",
-                "user-agent": "okhttp/3.9.1"
-            }
+    input1 = await app.ask(message.chat.id, text="Send ID & Password in this manner otherwise bot will not respond.\n\nSend like this:-  ID*Password\n\n OR Send Your Token")
+    login_url = "https://spec.iitschool.com/api/v1/login-other"  # Indentation corrected here
+    raw_text = input1.text
+    if "*" in raw_text:
+        headers = {
+            "Host": "spec.iitschool.com",
+            "origintype": "web",
+            "accept": "application/json",
+            "content-type": "application/json; charset=utf-8",
+            "accept-encoding": "gzip",
+            "user-agent": "okhttp/3.9.1"
+        }
 
-            email, password = raw_text.split("*")
-            data = {
-                "deviceType": "web",
-                "password": password,
-                "deviceModel": "chrome",
-                "deviceVersion": "Chrome+119",
-                "email": email
-            }
+        email, password = raw_text.split("*")
+        data = {
+            "deviceType": "web",
+            "password": password,
+            "deviceModel": "chrome",
+            "deviceVersion": "Chrome+119",
+            "email": email
+    }
 
             response = requests.post(login_url, headers=headers, json=data)
             response.raise_for_status()  # Raise an error if the request was unsuccessful
