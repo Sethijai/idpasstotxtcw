@@ -59,8 +59,8 @@ bc_hdr = {"BCOV-POLICY": BCOV_POLICY}
 
 @bot.on_message(filters.command(["login"]))
 async def account_login(bot: Client, m: Message):
-    input1 = await app.ask(message.chat.id, text="Send ID & Password in this manner otherwise bot will not respond.nnSend like this:-  ID*Passwordnn OR Send Your Token")
-    login_url = "https://spec.iitschool.com/api/v1/login-other"  # Indentation corrected here
+    input1 = await app.ask(message.chat.id, text="Send ID & Password in this manner otherwise bot will not respond.\n\nSend like this:-  ID*Password\n\n OR Send Your Token")
+    login_url = "https://spec.iitschool.com/api/v1/login-other"
     raw_text = input1.text
     if "*" in raw_text:
         headers = {
@@ -81,15 +81,15 @@ async def account_login(bot: Client, m: Message):
             "email": email
         }
 
-        response = requests.post(login_url, headers=headers, json=data) # Indentation fixed here
-        response.raise_for_status()  # Raise an error if the request was unsuccessful
+        response = requests.post(login_url, headers=headers, json=data)
+        response.raise_for_status() 
         token = response.json()["data"]["token"]
-        await message.reply_text(f"**Login Successful**nn{token}")
+        await message.reply_text(f"**Login Successful**\n\n{token}")
     else:
         token = raw_text
-    except Exception as e:
+    except Exception as e:  # Correct indentation
         await message.reply_text(f"An error occurred during login: {e}")
-        return
+        return 
 
     headers = {
         "Host": "spec.iitschool.com",
