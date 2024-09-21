@@ -110,10 +110,10 @@ async def account_login(bot: Client, message: Message):  # Pass message here
     response = requests.get(batch_url, headers=headers)
     data = response.json()
     topicid = ""
-        for item in data["batchData"]:
-            topicid += str(item['id']) + "&"
+    for item in data["batchData"]:
+    topicid += str(item['id']) + "&"
         # Remove the trailing '&'
-        topicid = topicid[:-1]
+    topicid = topicid[:-1]
 
     FFF = "**BATCH-ID     -     BATCH NAME**\n\n"
     for data in topicid:
