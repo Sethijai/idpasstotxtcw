@@ -109,7 +109,11 @@ async def account_login(bot: Client, message: Message):  # Pass message here
     batch_url = "https://spec.iitschool.com/api/v1/my-batch"
     response = requests.get(batch_url, headers=headers)
     data = response.json()
-    topicid = data["batchData"]
+    topicid = ""
+        for item in data["batchData"]:
+            topicid += str(item['id']) + "&"
+        # Remove the trailing '&'
+        topicid = topicid[:-1]
 
     FFF = "**BATCH-ID     -     BATCH NAME**\n\n"
     for data in topicid:
