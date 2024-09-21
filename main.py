@@ -121,8 +121,9 @@ async def account_login(bot: Client, message: Message):  # Pass message here
     topic_url = "https://spec.iitschool.com/api/v1/batch-topic/" + raw_text2 + "?type=class"
     response = requests.get(topic_url, headers=headers)
     topic_data = response.json()
-    batch_data = topic_data['data']['batch_topic']
-    name = topic_data["data"]["batch_detail"]["name"]
+    batch_data = topic_data['data']
+    name = batch_data["batch_detail"]["name"]
+    
 
     BBB = "**TOPIC-ID - TOPIC**\n\n"
     id_num = ""
